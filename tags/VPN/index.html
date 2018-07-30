@@ -189,6 +189,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -548,7 +558,7 @@
   
   <script type="text/javascript">
     var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
+    var guest = 'nick,mail';
     guest = guest.split(',').filter(item=>{
       return GUEST.indexOf(item)>-1;
     });
@@ -560,7 +570,7 @@
         appKey: 'baRcDvmRoutAbU2g8aKdsv1U',
         lang: 'en',
         placeholder: 'Add a comment...',
-        avatar:'mm',
+        avatar:'identicon',
         guest_info:guest,
         pageSize:'10' || 10,
     });
