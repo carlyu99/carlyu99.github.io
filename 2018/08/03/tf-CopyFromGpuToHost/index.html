@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="Una pagina tantum adest.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Carl Yu">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="用Tensorflow训练网络的时候碰到了下面这段错误信息。经过调试，我发现当batch_size足够小（8）时可以正常训练，比较大（32）的时候会报OOM错误，更大（128）的时候就会报这个错误。所用显卡为GeForce 1050Ti (2G)。1234567891011121314151617181920212223242526272829303132333435363738392018-08">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow Error &quot;No registered &#39;_CopyFromGpuToHost&#39; OpKernel for CPU devices&quot;">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/tf-CopyFromGpuToHost/index.html">
 <meta property="og:site_name" content="Carl Yu">
-<meta property="og:description" content="Una pagina tantum adest.">
+<meta property="og:description" content="用Tensorflow训练网络的时候碰到了下面这段错误信息。经过调试，我发现当batch_size足够小（8）时可以正常训练，比较大（32）的时候会报OOM错误，更大（128）的时候就会报这个错误。所用显卡为GeForce 1050Ti (2G)。1234567891011121314151617181920212223242526272829303132333435363738392018-08">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-03T06:42:19.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Carl Yu">
-<meta name="twitter:description" content="Una pagina tantum adest.">
+<meta name="twitter:title" content="TensorFlow Error &quot;No registered &#39;_CopyFromGpuToHost&#39; OpKernel for CPU devices&quot;">
+<meta name="twitter:description" content="用Tensorflow训练网络的时候碰到了下面这段错误信息。经过调试，我发现当batch_size足够小（8）时可以正常训练，比较大（32）的时候会报OOM错误，更大（128）的时候就会报这个错误。所用显卡为GeForce 1050Ti (2G)。1234567891011121314151617181920212223242526272829303132333435363738392018-08">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/tf-CopyFromGpuToHost/"/>
 
 
 
 
 
-  <title>Carl Yu</title>
+  <title>TensorFlow Error "No registered '_CopyFromGpuToHost' OpKernel for CPU devices" | Carl Yu</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,9 +227,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -259,9 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/tf-CopyFromGpuToHost/" itemprop="url">TensorFlow Error "No registered '_CopyFromGpuToHost' OpKernel for CPU devices"</a></h1>
+          <h1 class="post-title" itemprop="name headline">TensorFlow Error "No registered '_CopyFromGpuToHost' OpKernel for CPU devices"</h1>
         
 
         <div class="post-meta">
@@ -303,135 +301,10 @@
           
 
           
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>用Tensorflow训练网络的时候碰到了下面这段错误信息。经过调试，我发现当batch_size足够小（8）时可以正常训练，比较大（32）的时候会报OOM错误，更大（128）的时候就会报这个错误。所用显卡为GeForce 1050Ti (2G)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">2018-08-03 13:57:54.221069: E T:\src\github\tensorflow\tensorflow\core\common_runtime\executor.cc:696] Executor failed to create kernel. Not found: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1322, in _do_call</span><br><span class="line">    return fn(*args)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1307, in _run_fn</span><br><span class="line">    options, feed_dict, fetch_list, target_list, run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1409, in _call_tf_sessionrun</span><br><span class="line">    run_metadata)</span><br><span class="line">tensorflow.python.framework.errors_impl.NotFoundError: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;trainer.py&quot;, line 230, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line">  File &quot;trainer.py&quot;, line 226, in main</span><br><span class="line">    trainer.train()</span><br><span class="line">  File &quot;trainer.py&quot;, line 127, in train</span><br><span class="line">    self.run_single_step(self.batch_train, step=s, is_train=True)</span><br><span class="line">  File &quot;trainer.py&quot;, line 157, in run_single_step</span><br><span class="line">    fetch_values = self.session.run(fetch, feed_dict=self.model.get_feed_dict(batch_chunk, step=step))</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 900, in run</span><br><span class="line">    run_metadata_ptr)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1135, in _run</span><br><span class="line">    feed_dict_tensor, options, run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1316, in _do_run</span><br><span class="line">    run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1335, in _do_call</span><br><span class="line">    raise type(e)(node_def, op, message)</span><br><span class="line">tensorflow.python.framework.errors_impl.NotFoundError: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/VPN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Carl Yu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Carl Yu">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/28/VPN/" itemprop="url">在Linux服务器的命令行中进行科学上网</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-28T19:41:52+08:00">
-                2018-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/28/VPN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/VPN/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>views
+            </span>
           
 
           
@@ -451,18 +324,8 @@
       
 
       
-        
-          
-            <p>最近要从Google Cloud下载一些数据到学校实验室的服务器，但是服务器没有梯子，于是我自己搭了一个。</p>
-<p>梯子选用的是Shadowsocks。海外服务器来自Vultr。为了能在命令行中使用，还需要安装Proxychains。由于我没有sudo权限，无法使用apt-get等命令，因此需要先下载Linuxbrew，然后通过这个程序来安装其他程序。</p>
-<h2 id="Vultr服务器"><a href="#Vultr服务器" class="headerlink" title="Vultr服务器"></a>Vultr服务器</h2><p>参见<a href="https://zoomyale.com/2016/vultr_and_ss/" target="_blank" rel="noopener">这里</a>，可以用支付宝，最便宜的$5/mo的就够用。<br>我开了多个服务器，测试后留下了一个最好用的。</p>
-<h2 id="Linuxbrew"><a href="#Linuxbrew" class="headerlink" title="Linuxbrew"></a>Linuxbrew</h2><p>参见<a href="https://blog.eduardovalle.com/2015/10/15/installing-software-without-root/" target="_blank" rel="noopener">这里</a>。</p>
-<h2 id="Shadowsocks-amp-Proxychains"><a href="#Shadowsocks-amp-Proxychains" class="headerlink" title="Shadowsocks &amp; Proxychains"></a>Shadowsocks &amp; Proxychains</h2><p>分别参见<a href="https://blog.csdn.net/szsteel1/article/details/54773544" target="_blank" rel="noopener">这里</a>和<a href="https://echohn.github.io/2016/05/29/to-build-the-fullstack-tools-for-over-the-wall/" target="_blank" rel="noopener">这里</a>。</p>
-<p>以上三个步骤完成之后就可以工作了。从Google Cloud的下载速度达到了10+MB/s。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p><a href="https://www.diycode.cc/topics/738" target="_blank" rel="noopener">这里</a>还有Chrome插件、加速工具等一些补充。</p>
+        <p>用Tensorflow训练网络的时候碰到了下面这段错误信息。经过调试，我发现当batch_size足够小（8）时可以正常训练，比较大（32）的时候会报OOM错误，更大（128）的时候就会报这个错误。所用显卡为GeForce 1050Ti (2G)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">2018-08-03 13:57:54.221069: E T:\src\github\tensorflow\tensorflow\core\common_runtime\executor.cc:696] Executor failed to create kernel. Not found: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1322, in _do_call</span><br><span class="line">    return fn(*args)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1307, in _run_fn</span><br><span class="line">    options, feed_dict, fetch_list, target_list, run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1409, in _call_tf_sessionrun</span><br><span class="line">    run_metadata)</span><br><span class="line">tensorflow.python.framework.errors_impl.NotFoundError: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br><span class="line"></span><br><span class="line">During handling of the above exception, another exception occurred:</span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;trainer.py&quot;, line 230, in &lt;module&gt;</span><br><span class="line">    main()</span><br><span class="line">  File &quot;trainer.py&quot;, line 226, in main</span><br><span class="line">    trainer.train()</span><br><span class="line">  File &quot;trainer.py&quot;, line 127, in train</span><br><span class="line">    self.run_single_step(self.batch_train, step=s, is_train=True)</span><br><span class="line">  File &quot;trainer.py&quot;, line 157, in run_single_step</span><br><span class="line">    fetch_values = self.session.run(fetch, feed_dict=self.model.get_feed_dict(batch_chunk, step=step))</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 900, in run</span><br><span class="line">    run_metadata_ptr)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1135, in _run</span><br><span class="line">    feed_dict_tensor, options, run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1316, in _do_run</span><br><span class="line">    run_metadata)</span><br><span class="line">  File &quot;D:\Program Files\Python36\lib\site-packages\tensorflow\python\client\session.py&quot;, line 1335, in _do_call</span><br><span class="line">    raise type(e)(node_def, op, message)</span><br><span class="line">tensorflow.python.framework.errors_impl.NotFoundError: No registered &apos;_CopyFromGpuToHost&apos; OpKernel for CPU devices compatible with node swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)</span><br><span class="line">        .  Registered:  device=&apos;GPU&apos;</span><br><span class="line"></span><br><span class="line">         [[Node: swap_out_optimizer_loss/gradients/conv_single_8/conv_1/Conv2D_grad/Conv2DBackpropFilter_0 = _CopyFromGpuToHost[T=DT_FLOAT, _class=[&quot;loc@optimi...opFilter_0&quot;], _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;](strided_slice_8/_267)]]</span><br></pre></td></tr></table></figure></p>
 
-          
-        
       
     </div>
     
@@ -479,12 +342,28 @@
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/VPN/" rel="next" title="在Linux服务器的命令行中进行科学上网">
+                <i class="fa fa-chevron-left"></i> 在Linux服务器的命令行中进行科学上网
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -494,10 +373,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -505,6 +385,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -737,6 +624,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
